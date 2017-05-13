@@ -7,14 +7,15 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.fetoxdevelopments.optix.api.RT;
-import com.fetoxdevelopments.optix.api.RTbuffer;
-import com.fetoxdevelopments.optix.api.RTbuffertype;
-import com.fetoxdevelopments.optix.api.RTcontext;
-import com.fetoxdevelopments.optix.api.RTdeviceattribute;
-import com.fetoxdevelopments.optix.api.RTformat;
-import com.fetoxdevelopments.optix.api.RTprogram;
-import com.fetoxdevelopments.optix.api.RTresult;
-import com.fetoxdevelopments.optix.api.RTvariable;
+import com.fetoxdevelopments.optix.api.struct.RTbuffer;
+import com.fetoxdevelopments.optix.api.enumeration.RTbuffertype;
+import com.fetoxdevelopments.optix.api.struct.RTcontext;
+import com.fetoxdevelopments.optix.api.enumeration.RTdeviceattribute;
+import com.fetoxdevelopments.optix.api.enumeration.RTformat;
+import com.fetoxdevelopments.optix.api.struct.RTprogram;
+import com.fetoxdevelopments.optix.api.enumeration.RTresult;
+import com.fetoxdevelopments.optix.api.struct.RTvariable;
+
 import org.bridj.IntValuedEnum;
 import org.bridj.Pointer;
 

@@ -1,5 +1,33 @@
 package com.fetoxdevelopments.optix.api;
 
+import com.fetoxdevelopments.optix.api.enumeration.RTbufferattribute;
+import com.fetoxdevelopments.optix.api.enumeration.RTbuffertype;
+import com.fetoxdevelopments.optix.api.enumeration.RTcontextattribute;
+import com.fetoxdevelopments.optix.api.enumeration.RTdeviceattribute;
+import com.fetoxdevelopments.optix.api.enumeration.RTexception;
+import com.fetoxdevelopments.optix.api.enumeration.RTfiltermode;
+import com.fetoxdevelopments.optix.api.enumeration.RTformat;
+import com.fetoxdevelopments.optix.api.enumeration.RTobjecttype;
+import com.fetoxdevelopments.optix.api.enumeration.RTremotedeviceattribute;
+import com.fetoxdevelopments.optix.api.enumeration.RTresult;
+import com.fetoxdevelopments.optix.api.enumeration.RTtextureindexmode;
+import com.fetoxdevelopments.optix.api.enumeration.RTtexturereadmode;
+import com.fetoxdevelopments.optix.api.enumeration.RTwrapmode;
+import com.fetoxdevelopments.optix.api.struct.RTacceleration;
+import com.fetoxdevelopments.optix.api.struct.RTbuffer;
+import com.fetoxdevelopments.optix.api.struct.RTcontext;
+import com.fetoxdevelopments.optix.api.struct.RTgeometry;
+import com.fetoxdevelopments.optix.api.struct.RTgeometrygroup;
+import com.fetoxdevelopments.optix.api.struct.RTgeometryinstance;
+import com.fetoxdevelopments.optix.api.struct.RTgroup;
+import com.fetoxdevelopments.optix.api.struct.RTmaterial;
+import com.fetoxdevelopments.optix.api.struct.RTprogram;
+import com.fetoxdevelopments.optix.api.struct.RTremotedevice;
+import com.fetoxdevelopments.optix.api.struct.RTselector;
+import com.fetoxdevelopments.optix.api.struct.RTtexturesampler;
+import com.fetoxdevelopments.optix.api.struct.RTtransform;
+import com.fetoxdevelopments.optix.api.struct.RTvariable;
+
 import org.bridj.BridJ;
 import org.bridj.CRuntime;
 import org.bridj.Callback;
