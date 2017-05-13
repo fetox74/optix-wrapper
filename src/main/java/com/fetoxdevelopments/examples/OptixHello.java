@@ -76,7 +76,7 @@ public class OptixHello
       rtResult = RT.rtContextSetRayTypeCount(context.get(), 1);
       rtResult = RT.rtContextSetEntryPointCount(context.get(), 1);
 
-      rtResult = RT.rtBufferCreate(context.get(), (int)RTbuffertype.RT_BUFFER_OUTPUT.value(), buffer); // todo: change signature in the wrapper
+      rtResult = RT.rtBufferCreate(context.get(), RTbuffertype.RT_BUFFER_OUTPUT, buffer);
       rtResult = RT.rtBufferSetFormat(buffer.get(), RTformat.RT_FORMAT_FLOAT4);
       rtResult = RT.rtBufferSetSize2D(buffer.get(), width, height);
       rtResult = RT.rtContextDeclareVariable(context.get(), bufferNameStr, resultBuffer);

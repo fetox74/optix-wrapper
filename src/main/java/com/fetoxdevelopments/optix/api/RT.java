@@ -2997,9 +2997,9 @@ public class RT
    * Original signature : <code>RTresult rtBufferCreate(RTcontext, unsigned int, RTbuffer*)</code><br>
    * <i>native declaration : include\optix_host.h:7757</i>
    */
-  public static IntValuedEnum<RTresult> rtBufferCreate(RTcontext context, int bufferdesc, Pointer<RTbuffer> buffer)
+  public static IntValuedEnum<RTresult> rtBufferCreate(RTcontext context, IntValuedEnum<RTbuffertype> bufferdesc, Pointer<RTbuffer> buffer)
   {
-    return FlagSet.fromValue(rtBufferCreate(Pointer.getPeer(context), bufferdesc, Pointer.getPeer(buffer)), RTresult.class);
+    return FlagSet.fromValue(rtBufferCreate(Pointer.getPeer(context), (int) bufferdesc.value(), Pointer.getPeer(buffer)), RTresult.class);
   }
 
   protected native static int rtBufferCreate(@Ptr long context, int bufferdesc, @Ptr long buffer);
