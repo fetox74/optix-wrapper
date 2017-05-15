@@ -62,9 +62,9 @@ public class OptixSphere
         {
           for(int x = 0; x < WIDTH; x++)
           {
-            image.setRGB(x, y, ((int)pixels[x * 4 + y * WIDTH * 4] & 0xff) << 16 |
+            image.setRGB(x, y, ((int)pixels[x * 4 + y * WIDTH * 4+ 2] & 0xff) << 16 |
                                ((int)pixels[x * 4 + y * WIDTH * 4 + 1] & 0xff) << 8 |
-                               ((int)pixels[x * 4 + y * WIDTH * 4 + 2] & 0xff));
+                               ((int)pixels[x * 4 + y * WIDTH * 4 + 0] & 0xff));
           }
         }
 
