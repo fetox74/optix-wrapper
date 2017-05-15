@@ -57,14 +57,14 @@ public class OptixSphere
       try
       {
         BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
-        float[] pixels = pointer.get().as(Float.class).getFloats(WIDTH * HEIGHT * 4);
+        byte[] pixels = pointer.get().as(Byte.class).getBytes(WIDTH * HEIGHT * 4);
         for(int y = 0; y < HEIGHT; y++)
         {
           for(int x = 0; x < WIDTH; x++)
           {
-            image.setRGB(x, y, ((int)(pixels[x * 4 + y * WIDTH * 4] * 255)) << 16 |
-                               ((int)(pixels[x * 4 + y * WIDTH * 4 + 1] * 255)) << 8 |
-                               ((int)(pixels[x * 4 + y * WIDTH * 4 + 2] * 255)));
+            image.setRGB(x, y, ((int)pixels[x * 4 + y * WIDTH * 4] & 0xff) << 16 |
+                               ((int)pixels[x * 4 + y * WIDTH * 4 + 1] & 0xff) << 8 |
+                               ((int)pixels[x * 4 + y * WIDTH * 4 + 2] & 0xff));
           }
         }
 
@@ -172,7 +172,7 @@ public class OptixSphere
     Pointer<Float> lookAt = Pointer.pointerToFloats(0.0f, 0.0f, 0.0f);
     Pointer<Float> up = Pointer.pointerToFloats(0.0f, 1.0f, 0.0f);
     hFOV = 60.0f;
-    aspectRatio = (float)WIDTH / (float)HEIGHT;
+    aspectRatio = (float) WIDTH / (float) HEIGHT;
     Pointer<Float> cameraU = Pointer.allocateFloats(3);
     Pointer<Float> cameraV = Pointer.allocateFloats(3);
     Pointer<Float> cameraW = Pointer.allocateFloats(3);
@@ -185,13 +185,13 @@ public class OptixSphere
 
     /* Exception program */
     rtResult = RT.rtContextDeclareVariable(context.get(), CString("bad_color"), badColor);
-    rtResult = RT.rtVariableSet3f(badColor.get(), 1.0f, 0.0f, 1.0f );
+    rtResult = RT.rtVariableSet3f(badColor.get(), 1.0f, 0.0f, 1.0f);
     rtResult = RT.rtProgramCreateFromPTXFile(context.get(), CString("optixSphere_generated_pinhole_camera.cu.ptx"), CString("exception"), exceptionProgram);
     rtResult = RT.rtContextSetExceptionProgram(context.get(), 0, exceptionProgram.get());
 
     /* Miss program */
     rtResult = RT.rtProgramCreateFromPTXFile(context.get(), CString("optixSphere_generated_constantbg.cu.ptx"), CString("miss"), missProgram);
-    rtResult = RT.rtProgramDeclareVariable(missProgram.get(), CString("bg_color") , bgColor);
+    rtResult = RT.rtProgramDeclareVariable(missProgram.get(), CString("bg_color"), bgColor);
     rtResult = RT.rtVariableSet3f(bgColor.get(), .3f, 0.1f, 0.2f);
     rtResult = RT.rtContextSetMissProgram(context.get(), 0, missProgram.get());
   }
@@ -264,5 +264,42 @@ public class OptixSphere
   private static void calculateCameraVariables(Pointer<Float> camEye, Pointer<Float> lookAt, Pointer<Float> up, float hFOV, float aspectRatio,
                                                Pointer<Float> cameraU, Pointer<Float> cameraV, Pointer<Float> cameraW)
   {
+    /*float ulen, vlen, wlen;
+    cameraW = lookAt - camEye; // Do not normalize W -- it implies focal length
+
+    wlen = length(cameraW.getFloats(3));
+    cameraU = normalize(cross(cameraW.getFloats(3), up.getFloats(3)));
+    cameraV = normalize(cross(cameraU.getFloats(3), cameraW.getFloats(3)));
+
+    if(true)
+    {
+      vlen = wlen * (float)Math.tan(0.5 * (double)hFOV * Math.PI / 180.0);
+      cameraV *= vlen;
+      ulen = vlen * aspectRatio;
+      cameraU *= ulen;
+    }
+    else
+    {
+      ulen = wlen * (float)Math.tan(0.5 * (double)hFOV * Math.PI / 180.0);
+      cameraU *= ulen;
+      vlen = ulen / aspectRatio;
+      cameraV *= vlen;
+    }*/
   }
+
+  private static Pointer<Float> normalize(Pointer<Float> v)
+  {
+    return null;
+  }
+
+  private static Pointer<Float> cross(float[] v1, float[] v2)
+  {
+    return null;
+  }
+
+  private static float length(float[] v)
+  {
+    return (float)Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+  }
+
 }
