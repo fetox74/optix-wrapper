@@ -264,37 +264,61 @@ public class OptixSphere
   private static void calculateCameraVariables(Pointer<Float> camEye, Pointer<Float> lookAt, Pointer<Float> up, float hFOV, float aspectRatio,
                                                Pointer<Float> cameraU, Pointer<Float> cameraV, Pointer<Float> cameraW)
   {
-    /*float ulen, vlen, wlen;
-    cameraW = lookAt - camEye; // Do not normalize W -- it implies focal length
+    float ulen, vlen, wlen;
+    cameraW.setFloats(subtract(lookAt.getFloats(3), camEye.getFloats(3))); // Do not normalize W -- it implies focal length
 
     wlen = length(cameraW.getFloats(3));
-    cameraU = normalize(cross(cameraW.getFloats(3), up.getFloats(3)));
-    cameraV = normalize(cross(cameraU.getFloats(3), cameraW.getFloats(3)));
+    cameraU.setFloats(normalize(cross(cameraW.getFloats(3), up.getFloats(3))));
+    cameraV.setFloats(normalize(cross(cameraU.getFloats(3), cameraW.getFloats(3))));
 
     if(true)
     {
       vlen = wlen * (float)Math.tan(0.5 * (double)hFOV * Math.PI / 180.0);
-      cameraV *= vlen;
+      cameraV.setFloats(multiply(cameraV.getFloats(3), vlen));
       ulen = vlen * aspectRatio;
-      cameraU *= ulen;
+      cameraU.setFloats(multiply(cameraU.getFloats(3), ulen));
     }
     else
     {
       ulen = wlen * (float)Math.tan(0.5 * (double)hFOV * Math.PI / 180.0);
-      cameraU *= ulen;
+      cameraU.setFloats(multiply(cameraU.getFloats(3), ulen));
       vlen = ulen / aspectRatio;
-      cameraV *= vlen;
-    }*/
+      cameraV.setFloats(multiply(cameraV.getFloats(3), vlen));
+    }
   }
 
-  private static Pointer<Float> normalize(Pointer<Float> v)
+  private static float[] subtract(float[] v1, float[] v2)
   {
-    return null;
+    float result[] = new float[3];
+
+    result[0] = v1[0] - v2[0];
+    result[1] = v1[1] - v2[1];
+    result[2] = v1[2] - v2[2];
+
+    return result;
   }
 
-  private static Pointer<Float> cross(float[] v1, float[] v2)
+  private static float[] normalize(float[] v)
   {
-    return null;
+    float result[] = new float[3];
+
+    float l = length(v);
+    result[0] = v[0] / l;
+    result[1] = v[1] / l;
+    result[2] = v[2] / l;
+
+    return result;
+  }
+
+  private static float[] cross(float[] v1, float[] v2)
+  {
+    float result[] = new float[3];
+
+    result[0] = v1[1] * v2[2] - v1[2] * v2[1];
+    result[1] = v1[2] * v2[0] - v1[0] * v2[2];
+    result[2] = v1[0] * v2[1] - v1[1] * v2[0];
+
+    return result;
   }
 
   private static float length(float[] v)
@@ -302,4 +326,14 @@ public class OptixSphere
     return (float)Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
   }
 
+  private static float[] multiply(float[] v, float c)
+  {
+    float result[] = new float[3];
+
+    result[0] = v[0] * c;
+    result[1] = v[1] * c;
+    result[2] = v[2] * c;
+
+    return result;
+  }
 }

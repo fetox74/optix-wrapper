@@ -5,11 +5,9 @@ the C++ API aswell in nice and easy to use Java classes. Makes heavy use of Brid
 ## Usage
 
 Optix SDK 4.0.2 is needed, copy the optix.1.dll into project root, aswell as the required .ptx files, so far all optixHello_* and optixSphere_* ones.
-Should be able to launch this from your preferred IDE after adding these. Doesn't do much but putting a green result.png into your root dir, at least for the
-moment. Working on OptixSphere which should actually render a basic sphere :P
+Should be able to launch this from your preferred IDE after adding these. Doesn't do much but putting a result.png into your root dir, at least for the
+moment.
 
 ### Known issues:
-
-_- OptixSphere not working_
 
 _- C++ API missing_
